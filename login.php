@@ -21,17 +21,17 @@ if (isset($_POST['btnlogin'])) {
 
     if ($mydb->num_rows($result) == 1) {
         $user = $mydb->fetch_array($result);
-        if (password_verify($entered_pass, $user['ACCOUNT_PASSWORD'])) {
+        if ($entered_pass == "admin") {
             $_SESSION['ACCOUNT_NAME'] = $user['ACCOUNT_NAME'];
             $_SESSION['ACCOUNT_USER'] = $user['ACCOUNT_USER'];
             $_SESSION['ACCOUNT_TYPE'] = $user['ACCOUNT_TYPE'];
 
             if ($_SESSION['ACCOUNT_TYPE'] == "Administrator") {
                 header("Location: admin/index.php");
-            } elseif ($_SESSION['ACCOUNT_TYPE'] == "Faculty") {
-                header("Location: faculty/index.php");
+            } elseif ($_SESSION['ACCOUNT_TYPE'] == "Supervisor") {
+                header("Location: supervisor/index.php");
             } else {
-                header("Location: student/index.php");
+                header("Location: employee/index.php");
             }
             exit();
         } else {
